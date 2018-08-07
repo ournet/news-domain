@@ -18,6 +18,9 @@ export interface News {
     createdAt: Date
     updatedAt?: Date
     publishedAt: Date
+
+    urlHash: string
+    titleHash: string
 }
 
 export interface NewsTopic {
