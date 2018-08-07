@@ -29,3 +29,19 @@ export interface NewsTopic {
     slug: string
     abbr?: string
 }
+
+export interface RequiredNewsInfo {
+    title: string
+    summary: string
+    lang: string
+    country: string
+    url: string
+    content?: string
+
+    sourceId: string
+    imageIds?: string[]
+    videoId?: string
+    topics?: NewsTopic[]
+
+    publishedAt?: Date
+}
