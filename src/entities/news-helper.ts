@@ -1,54 +1,54 @@
 
 import { TextHelper, sha1, normalizeUrl } from "../../../domain/types";
 import { slugify } from 'transliteration';
-import { BuildNewsInfo, News } from "./news";
+import { BuildNewsParams, News } from "./news";
 import { splitUrl } from "../helpers";
 import { BuildArticleContentInfo, ArticleContent } from "./article-content";
 import { NEWS_EXPIRE_DAYS } from "../config";
 
 export class NewsHelper {
 
-    static build(info: BuildNewsInfo): News {
-        const urlData = splitUrl(info.url);
+    static build(params: BuildNewsParams): News {
+        const urlData = splitUrl(params.url);
         if (!urlData.host) {
-            throw new Error(`Invalid news url:${info.url}`);
+            throw new Error(`Invalid news url:${params.url}`);
         }
         if (!urlData.path) {
-            throw new Error(`Invalid news url:${info.url}`);
+            throw new Error(`Invalid news url:${params.url}`);
         }
 
-        const normalizedUrl = normalizeUrl(info.url);
-        const titleHash = NewsHelper.titleHash(info.title);
+        const normalizedUrl = normalizeUrl(params.url);
+        const titleHash = NewsHelper.titleHash(params.title);
         const urlHash = NewsHelper.urlHash(normalizedUrl);
-        let slug = NewsHelper.slug(info.title).substr(0, 60);
+        let slug = NewsHelper.slug(params.title).substr(0, 60);
         if (slug.endsWith('-')) {
             slug = slug.substr(0, slug.length - 1);
         }
 
-        const createdAt = info.createdAt || new Date();
-        const expiresAt = info.expiresAt || NewsHelper.createExpiresAt(createdAt);
-        const id = NewsHelper.createId(info.country, info.lang, urlHash, createdAt);
+        const createdAt = params.createdAt || new Date();
+        const expiresAt = params.expiresAt || NewsHelper.createExpiresAt(createdAt);
+        const id = NewsHelper.createId(params.country, params.lang, urlHash, createdAt);
 
         const news: News = {
             id,
-            title: info.title,
-            summary: info.summary,
-            sourceId: info.sourceId,
+            title: params.title,
+            summary: params.summary,
+            sourceId: params.sourceId,
             titleHash,
             urlHash,
             slug,
-            lang: info.lang,
-            country: info.country,
+            lang: params.lang,
+            country: params.country,
             createdAt,
             expiresAt,
-            publishedAt: info.publishedAt || createdAt,
-            imageIds: info.imageIds,
-            topics: info.topics,
-            topicsLocation: info.topicsLocation,
-            videoId: info.videoId,
+            publishedAt: params.publishedAt || createdAt,
+            imageIds: params.imageIds,
+            topics: params.topics,
+            topicsLocation: params.topicsLocation,
+            videoId: params.videoId,
             urlHost: urlData.host,
             urlPath: urlData.path,
-            hasContent: info.hasContent,
+            hasContent: params.hasContent,
         };
 
         return news;
@@ -92,7 +92,6 @@ export class NewsHelper {
     }
 
     static createId(country: string, lang: string, urlHash: string, date: Date) {
-        date = date || new Date();
         const locale = NewsHelper.formatIdLocale(country, lang);
         return `${urlHash.substr(0, 8)}${NewsHelper.formatIdDate(date)}${locale}`;
     }

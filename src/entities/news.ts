@@ -31,7 +31,7 @@ export interface News {
     hasContent: boolean
 }
 
-export interface BuildNewsInfo {
+export interface BuildNewsParams {
     title: string
     summary: string
     lang: string

@@ -54,3 +54,33 @@ export interface EventNews {
 	path: string
 	publishedAt: Date
 }
+
+export interface BuildEventParams {
+	title: string
+	summary: string
+
+	source: EventSourceNews
+
+	lang: string
+	country: string
+	imageId: string
+	imageHost: string
+	imageSourceId: string
+	
+	countImages: number
+
+	topics: Topic[]
+	topicsLocation?: TopicLocationMap
+
+	news: EventNews[]
+
+	quotesIds?: string[]
+	videosIds?: string[]
+
+	status?: EventStatus
+
+	createdAt?: Date
+	expiresAt?: Date
+
+	hasContent: boolean
+}
