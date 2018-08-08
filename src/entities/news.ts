@@ -1,3 +1,4 @@
+import { Topic, TopicLocationMap } from "./topic";
 
 // export const NEWS_ID_REGEX: RegExp = /^[a-z0-9]{8}\d{6}[a-z]{4}$/;
 
@@ -14,31 +15,20 @@ export interface News {
     sourceId: string
     imageIds?: string[]
     videoId?: string
-    topics?: NewsTopic[]
-    topicsLocation?: NewsTopicLocationMap
+    topics?: Topic[]
+    topicsLocation?: TopicLocationMap
 
     eventId?: string
 
     createdAt: Date
     updatedAt?: Date
     publishedAt: Date
+    expiresAt: Date
 
     urlHash: string
     titleHash: string
-}
 
-export interface NewsTopic {
-    id: string
-    name: string
-    slug: string
-    abbr?: string
-}
-
-export type NewsTopicLocationMap = {
-    [key: string]: {
-        index: number
-        length: number
-    }
+    hasContent: boolean
 }
 
 export interface BuildNewsInfo {
@@ -51,8 +41,12 @@ export interface BuildNewsInfo {
     sourceId: string
     imageIds?: string[]
     videoId?: string
-    topics?: NewsTopic[]
-    topicsLocation?: NewsTopicLocationMap
+    topics?: Topic[]
+    topicsLocation?: TopicLocationMap
+
+    hasContent: boolean
 
     publishedAt?: Date
+    createdAt?: Date
+    expiresAt?: Date
 }

@@ -2,7 +2,7 @@
 import {
     ReadRepository,
     WriteRepository,
-} from '@ournet/domain';
+} from '../../../domain/types';
 
 import { ArticleContent } from '../entities/article-content';
 
