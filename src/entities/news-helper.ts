@@ -3,6 +3,7 @@ import { TextHelper, sha1, normalizeUrl } from "@ournet/domain";
 import { slugify } from 'transliteration';
 import { BuildNewsInfo, News } from "./news";
 import { splitUrl } from "../helpers";
+import { BuildArticleContentInfo, ArticleContent } from "./article-content";
 
 export class NewsHelper {
 
@@ -34,7 +35,6 @@ export class NewsHelper {
             titleHash,
             urlHash,
             slug,
-            content: info.content,
             lang: info.lang,
             country: info.country,
             createdAt,
@@ -48,6 +48,26 @@ export class NewsHelper {
         };
 
         return news;
+    }
+
+    static buildArticleConcept(info: BuildArticleContentInfo) {
+        const createdAt = info.createdAt || new Date();
+        const expiresAt = info.expiresAt || NewsHelper.createExpiresAt(createdAt);
+        
+        const content: ArticleContent = {
+            id: info.id,
+            content: info.content,
+            createdAt,
+            expiresAt,
+        };
+
+        return content;
+    }
+
+    static createExpiresAt(date: Date) {
+        date = new Date(date);
+        date.setDate(date.getDate() + 7);
+        return date;
     }
 
     static titleHash(title: string) {

@@ -1,5 +1,5 @@
 
-export const NEWS_ID_REGEX: RegExp = /^[a-z0-9]{8}\d{6}[a-z]{4}$/;
+// export const NEWS_ID_REGEX: RegExp = /^[a-z0-9]{8}\d{6}[a-z]{4}$/;
 
 export interface News {
     id: string
@@ -9,7 +9,6 @@ export interface News {
     country: string
     urlPath: string
     urlHost: string
-    content?: string
     slug: string
 
     sourceId: string
@@ -17,6 +16,8 @@ export interface News {
     videoId?: string
     topics?: NewsTopic[]
     topicsLocation?: NewsTopicLocationMap
+
+    eventId?: string
 
     createdAt: Date
     updatedAt?: Date
@@ -46,7 +47,6 @@ export interface BuildNewsInfo {
     lang: string
     country: string
     url: string
-    content?: string
 
     sourceId: string
     imageIds?: string[]
