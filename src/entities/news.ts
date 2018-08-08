@@ -1,4 +1,6 @@
 
+export const NEWS_ID_REGEX: RegExp = /^[a-z0-9]{8}\d{6}[a-z]{4}$/;
+
 export interface News {
     id: string
     title: string
@@ -14,6 +16,7 @@ export interface News {
     imageIds?: string[]
     videoId?: string
     topics?: NewsTopic[]
+    topicsLocation?: NewsTopicLocationMap
 
     createdAt: Date
     updatedAt?: Date
@@ -30,7 +33,14 @@ export interface NewsTopic {
     abbr?: string
 }
 
-export interface RequiredNewsInfo {
+export type NewsTopicLocationMap = {
+    [key: string]: {
+        index: number
+        length: number
+    }
+}
+
+export interface BuildNewsInfo {
     title: string
     summary: string
     lang: string
@@ -42,6 +52,7 @@ export interface RequiredNewsInfo {
     imageIds?: string[]
     videoId?: string
     topics?: NewsTopic[]
+    topicsLocation?: NewsTopicLocationMap
 
     publishedAt?: Date
 }

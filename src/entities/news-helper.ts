@@ -1,12 +1,12 @@
 
 import { TextHelper, sha1, normalizeUrl } from "@ournet/domain";
 import { slugify } from 'transliteration';
-import { RequiredNewsInfo, News } from "./news";
+import { BuildNewsInfo, News } from "./news";
 import { splitUrl } from "../helpers";
 
 export class NewsHelper {
 
-    static build(info: RequiredNewsInfo): News {
+    static build(info: BuildNewsInfo): News {
         const urlData = splitUrl(info.url);
         if (!urlData.host) {
             throw new Error(`Invalid news url:${info.url}`);
@@ -24,7 +24,7 @@ export class NewsHelper {
         }
 
         const createdAt = new Date();
-        const id = NewsHelper.createId(urlHash, createdAt);
+        const id = NewsHelper.createId(info.country, info.lang, urlHash, createdAt);
 
         const news: News = {
             id,
@@ -41,6 +41,7 @@ export class NewsHelper {
             imageIds: info.imageIds,
             publishedAt: info.publishedAt || createdAt,
             topics: info.topics,
+            topicsLocation: info.topicsLocation,
             videoId: info.videoId,
             urlHost: urlData.host,
             urlPath: urlData.path,
@@ -66,9 +67,14 @@ export class NewsHelper {
         });
     }
 
-    static createId(urlHash: string, date?: Date) {
+    static createId(country: string, lang: string, urlHash: string, date: Date) {
         date = date || new Date();
-        return `${urlHash.substr(0, 8)}${NewsHelper.formatIdDate(date)}`;
+        const locale = NewsHelper.formatIdLocale(country, lang);
+        return `${urlHash.substr(0, 8)}${NewsHelper.formatIdDate(date)}${locale}`;
+    }
+
+    static formatIdLocale(country: string, lang: string) {
+        return `${country.trim()}${lang.trim()}`;
     }
 
     static formatIdDate(date: Date) {

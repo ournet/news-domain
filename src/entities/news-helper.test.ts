@@ -11,7 +11,7 @@ test('#formatIdDate', t => {
 
 test('#createId', t => {
     const date = new Date();
-    const id = NewsHelper.createId('f4fdf46dgfdgfs4ts4ts4gfs4fs4', date);
-    t.log(`id for ${date.toUTCString()} is ${id}`);
-    t.is(id.length, 14);
+    const id = NewsHelper.createId('md', 'ru', 'f4fdf46dgfdgfs4ts4ts4gfs4fs4', date);
+    t.log(`id for md-ru ${date.toUTCString()} is ${id}`);
+    t.is(id.length, 18);
 });
