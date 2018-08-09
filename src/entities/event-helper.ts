@@ -1,11 +1,11 @@
 
 import { EVENT_EXPIRE_DAYS } from "../config";
-import { BuildEventParams, Event } from "./event";
+import { BuildNewsEventParams, NewsEvent } from "./event";
 import { NewsHelper } from "./news-helper";
 
 export class EventHelper {
 
-    static build(params: BuildEventParams): Event {
+    static build(params: BuildNewsEventParams): NewsEvent {
         let slug = NewsHelper.slug(params.title).substr(0, 60);
         if (slug.endsWith('-')) {
             slug = slug.substr(0, slug.length - 1);
@@ -15,7 +15,7 @@ export class EventHelper {
         const expiresAt = params.expiresAt || EventHelper.createExpiresAt(createdAt);
         const id = params.source.id;
 
-        const event: Event = {
+        const event: NewsEvent = {
             id,
             title: params.title,
             summary: params.summary,
@@ -38,7 +38,7 @@ export class EventHelper {
             imageHost: params.imageHost,
             imageId: params.imageId,
             imageSourceId: params.imageSourceId,
-            news: params.news,
+            items: params.news,
             status: params.status,
         };
 
@@ -49,5 +49,9 @@ export class EventHelper {
         date = new Date(date);
         date.setDate(date.getDate() + EVENT_EXPIRE_DAYS);
         return date;
+    }
+
+    static parseLocaleFromId(id: string) {
+        return NewsHelper.parseLocaleFromId(id);
     }
 }

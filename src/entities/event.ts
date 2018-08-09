@@ -1,12 +1,12 @@
 import { Topic, TopicLocationMap } from "./topic";
 
-export interface Event {
+export interface NewsEvent {
 	id: string
 	title: string
 	slug: string
 	summary: string
 
-	source: EventSourceNews
+	source: NewsEventSource
 
 	lang: string
 	country: string
@@ -23,12 +23,12 @@ export interface Event {
 	topics: Topic[]
 	topicsLocation?: TopicLocationMap
 
-	news: EventNews[]
+	items: NewsEventItem[]
 
 	quotesIds?: string[]
 	videosIds?: string[]
 
-	status?: EventStatus
+	status?: NewsEventStatus
 
 	createdAt: Date
 	updatedAt?: Date
@@ -37,16 +37,16 @@ export interface Event {
 	hasContent: boolean
 }
 
-export type EventStatus = 'ADULT';
+export type NewsEventStatus = 'ADULT';
 
-export interface EventSourceNews {
+export interface NewsEventSource {
 	id: string
 	host: string
 	path: string
 	sourceId: string
 }
 
-export interface EventNews {
+export interface NewsEventItem {
 	id: string
 	title: string
 	sourceId: string
@@ -55,29 +55,29 @@ export interface EventNews {
 	publishedAt: Date
 }
 
-export interface BuildEventParams {
+export interface BuildNewsEventParams {
 	title: string
 	summary: string
 
-	source: EventSourceNews
+	source: NewsEventSource
 
 	lang: string
 	country: string
 	imageId: string
 	imageHost: string
 	imageSourceId: string
-	
+
 	countImages: number
 
 	topics: Topic[]
 	topicsLocation?: TopicLocationMap
 
-	news: EventNews[]
+	news: NewsEventItem[]
 
 	quotesIds?: string[]
 	videosIds?: string[]
 
-	status?: EventStatus
+	status?: NewsEventStatus
 
 	createdAt?: Date
 	expiresAt?: Date

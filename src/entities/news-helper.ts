@@ -4,6 +4,7 @@ import { slugify } from 'transliteration';
 import { BuildNewsParams, News } from "./news";
 import { splitUrl } from "../helpers";
 import { NEWS_EXPIRE_DAYS } from "../config";
+import { Locale } from "../common";
 
 export class NewsHelper {
 
@@ -90,5 +91,12 @@ export class NewsHelper {
         const day = date.getUTCDate();
 
         return `${date.getUTCFullYear().toString().substr(2)}${month > 9 ? month : '0' + month}${day > 9 ? day : '0' + day}`;
+    }
+
+    static parseLocaleFromId(id: string): Locale {
+        return {
+            country: id.substr(id.length - 4, 2),
+            lang: id.substr(id.length - 2),
+        };
     }
 }
