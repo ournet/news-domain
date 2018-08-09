@@ -1,5 +1,5 @@
 
-import { TextHelper, sha1, normalizeUrl } from "../../../domain/types";
+import { TextHelper, sha1, normalizeUrl } from "@ournet/domain";
 import { slugify } from 'transliteration';
 import { BuildNewsParams, News } from "./news";
 import { splitUrl } from "../helpers";

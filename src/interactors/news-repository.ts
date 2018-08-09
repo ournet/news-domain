@@ -3,7 +3,7 @@ import {
     ReadRepository,
     WriteRepository,
     RepositoryAccessOptions,
-} from '../../../domain/types';
+} from '@ournet/domain';
 
 import { News } from '../entities/news';
 
