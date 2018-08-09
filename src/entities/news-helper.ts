@@ -3,7 +3,6 @@ import { TextHelper, sha1, normalizeUrl } from "../../../domain/types";
 import { slugify } from 'transliteration';
 import { BuildNewsParams, News } from "./news";
 import { splitUrl } from "../helpers";
-import { BuildArticleContentInfo, ArticleContent } from "./article-content";
 import { NEWS_EXPIRE_DAYS } from "../config";
 
 export class NewsHelper {
@@ -52,20 +51,6 @@ export class NewsHelper {
         };
 
         return news;
-    }
-
-    static buildArticleConcept(info: BuildArticleContentInfo) {
-        const createdAt = info.createdAt || new Date();
-        const expiresAt = info.expiresAt || NewsHelper.createExpiresAt(createdAt);
-
-        const content: ArticleContent = {
-            id: info.id,
-            content: info.content,
-            createdAt,
-            expiresAt,
-        };
-
-        return content;
     }
 
     static createExpiresAt(date: Date) {

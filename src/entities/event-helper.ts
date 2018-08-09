@@ -1,5 +1,4 @@
 
-import { BuildArticleContentInfo, ArticleContent } from "./article-content";
 import { EVENT_EXPIRE_DAYS } from "../config";
 import { BuildEventParams, Event } from "./event";
 import { NewsHelper } from "./news-helper";
@@ -44,20 +43,6 @@ export class EventHelper {
         };
 
         return event;
-    }
-
-    static buildArticleConcept(info: BuildArticleContentInfo) {
-        const createdAt = info.createdAt || new Date();
-        const expiresAt = info.expiresAt || EventHelper.createExpiresAt(createdAt);
-
-        const content: ArticleContent = {
-            id: info.id,
-            content: info.content,
-            createdAt,
-            expiresAt,
-        };
-
-        return content;
     }
 
     static createExpiresAt(date: Date) {
