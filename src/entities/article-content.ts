@@ -20,6 +20,6 @@ export interface BuildArticleContentParams {
 export type ArticleContentRefType = 'NEWS' | 'EVENT'
 
 export type ArticleContentRef = {
-    id: string
-    type: ArticleContentRefType
+    refId: string
+    refType: ArticleContentRefType
 }

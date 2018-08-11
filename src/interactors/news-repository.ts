@@ -24,21 +24,18 @@ export interface NewsQueryParams {
 }
 
 export interface LatestNewsQueryParams extends NewsQueryParams {
-    lastPublishedAt?: Date
+    publishedAt?: Date
 }
 
-export interface LatestNewsBySourceQueryParams extends NewsQueryParams {
-    lastPublishedAt?: Date
+export interface LatestNewsBySourceQueryParams extends LatestNewsQueryParams {
     sourceId: string
 }
 
-export interface LatestNewsByTopicQueryParams extends NewsQueryParams {
-    lastPublishedAt?: Date
+export interface LatestNewsByTopicQueryParams extends LatestNewsQueryParams {
     topicId: string
 }
 
-export interface LatestNewsByEventQueryParams extends NewsQueryParams {
-    lastPublishedAt?: Date
+export interface LatestNewsByEventQueryParams extends LatestNewsQueryParams {
     eventId: string
 }
 

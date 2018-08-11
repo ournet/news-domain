@@ -16,11 +16,10 @@ export interface EventsQueryParams {
 }
 
 export interface LatestEventsQueryParams extends EventsQueryParams {
-    lastCreatedAt?: Date
+    createdAt?: Date
 }
 
-export interface LatestEventsByTopicQueryParams extends EventsQueryParams {
-    lastCreatedAt?: Date
+export interface LatestEventsByTopicQueryParams extends LatestEventsQueryParams {
     topicId: string
 }
 

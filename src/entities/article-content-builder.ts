@@ -1,4 +1,9 @@
-import { BuildArticleContentParams, ArticleContent, ArticleContentRefType, ArticleContentRef } from "./article-content";
+import {
+    BuildArticleContentParams,
+    ArticleContent,
+    ArticleContentRefType,
+    ArticleContentRef,
+} from "./article-content";
 import { NewsHelper } from "./news-helper";
 import { EventHelper } from "./event-helper";
 
@@ -14,7 +19,7 @@ export class ArticleContentBuilder {
             throw new Error(`Invalid refType: ${params.refType}`);
         }
 
-        const id = ArticleContentBuilder.createId({ id: params.refId, type: params.refType });
+        const id = ArticleContentBuilder.createId(params);
 
         const content: ArticleContent = {
             id,
@@ -29,7 +34,7 @@ export class ArticleContentBuilder {
     }
 
     static createId(ref: ArticleContentRef) {
-        return `${ref.type.trim().toLowerCase()}-${ref.type.trim()}`;
+        return `${ref.refType.trim().toLowerCase()}-${ref.refType.trim()}`;
     }
 
     static parseId(id: string) {
@@ -43,8 +48,8 @@ export class ArticleContentBuilder {
         }
 
         const ref: ArticleContentRef = {
-            type: type as ArticleContentRefType,
-            id: parts[1],
+            refType: type as ArticleContentRefType,
+            refId: parts[1],
         };
 
         return ref;
