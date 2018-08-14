@@ -4,17 +4,17 @@ export interface ArticleContent {
     refId: string
     refType: ArticleContentRefType
     content: string
-    expiresAt: Date
-    createdAt: Date
-    updatedAt?: Date
+    expiresAt: number
+    createdAt: string
+    updatedAt?: string
 }
 
 export interface BuildArticleContentParams {
     refId: string
     refType: ArticleContentRefType
     content: string
-    expiresAt?: Date
-    createdAt?: Date
+    expiresAt?: number
+    createdAt?: string
 }
 
 export type ArticleContentRefType = 'NEWS' | 'EVENT'

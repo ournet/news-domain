@@ -1,8 +1,6 @@
 import { Topic, TopicLocationMap } from "./topic";
 
-// export const NEWS_ID_REGEX: RegExp = /^[a-z0-9]{8}\d{6}[a-z]{4}$/;
-
-export interface News {
+export interface NewsItem {
     id: string
     title: string
     summary: string
@@ -20,10 +18,10 @@ export interface News {
 
     eventId?: string
 
-    createdAt: Date
-    updatedAt?: Date
-    publishedAt: Date
-    expiresAt: Date
+    createdAt: string
+    updatedAt?: string
+    publishedAt: string
+    expiresAt: number
 
     urlHash: string
     titleHash: string
@@ -46,7 +44,7 @@ export interface BuildNewsParams {
 
     hasContent: boolean
 
-    publishedAt?: Date
-    createdAt?: Date
-    expiresAt?: Date
+    publishedAt?: string
+    createdAt?: string
+    expiresAt?: number
 }

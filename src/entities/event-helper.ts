@@ -1,5 +1,5 @@
 
-import { EVENT_EXPIRE_DAYS } from "../config";
+import { NEWS_EVENT_EXPIRE_DAYS } from "../config";
 import { BuildNewsEventParams, NewsEvent } from "./event";
 import { NewsHelper } from "./news-helper";
 
@@ -11,8 +11,8 @@ export class EventHelper {
             slug = slug.substr(0, slug.length - 1);
         }
 
-        const createdAt = params.createdAt || new Date();
-        const expiresAt = params.expiresAt || EventHelper.createExpiresAt(createdAt);
+        const createdAt = params.createdAt && new Date(params.createdAt) || new Date();
+        const expiresAt = params.expiresAt || EventHelper.expiresAt(createdAt);
         const id = params.source.id;
 
         const event: NewsEvent = {
@@ -23,7 +23,7 @@ export class EventHelper {
             slug,
             lang: params.lang,
             country: params.country,
-            createdAt,
+            createdAt: createdAt.toISOString(),
             expiresAt,
             topics: params.topics,
             topicsLocation: params.topicsLocation,
@@ -45,10 +45,10 @@ export class EventHelper {
         return event;
     }
 
-    static createExpiresAt(date: Date) {
+    static expiresAt(date: Date) {
         date = new Date(date);
-        date.setDate(date.getDate() + EVENT_EXPIRE_DAYS);
-        return date;
+        date.setDate(date.getDate() + NEWS_EVENT_EXPIRE_DAYS);
+        return Math.floor(date.getTime() / 1000);
     }
 
     static parseLocaleFromId(id: string) {

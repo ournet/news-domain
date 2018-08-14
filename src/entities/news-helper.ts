@@ -1,13 +1,13 @@
 
 import { sha1, normalizeUrl, clearText } from "@ournet/domain";
 import { slugify } from 'transliteration';
-import { BuildNewsParams, News } from "./news";
+import { BuildNewsParams, NewsItem } from "./news";
 import { splitUrl } from "../helpers";
-import { NEWS_EXPIRE_DAYS } from "../config";
+import { NEWS_ITEM_EXPIRE_DAYS } from "../config";
 
 export class NewsHelper {
 
-    static build(params: BuildNewsParams): News {
+    static build(params: BuildNewsParams): NewsItem {
         const urlData = splitUrl(params.url);
         if (!urlData.host) {
             throw new Error(`Invalid news url:${params.url}`);
@@ -24,11 +24,12 @@ export class NewsHelper {
             slug = slug.substr(0, slug.length - 1);
         }
 
-        const createdAt = params.createdAt || new Date();
-        const expiresAt = params.expiresAt || NewsHelper.createExpiresAt(createdAt);
+        const createdAt = params.createdAt && new Date(params.createdAt) || new Date();
+        const expiresAt = params.expiresAt || NewsHelper.expiresAt(createdAt);
         const id = NewsHelper.createId(params.country, params.lang, urlHash, createdAt);
+        const publishedAt = params.publishedAt || createdAt.toISOString();
 
-        const news: News = {
+        const news: NewsItem = {
             id,
             title: params.title,
             summary: params.summary,
@@ -38,9 +39,9 @@ export class NewsHelper {
             slug,
             lang: params.lang,
             country: params.country,
-            createdAt,
+            createdAt: createdAt.toISOString(),
             expiresAt,
-            publishedAt: params.publishedAt || createdAt,
+            publishedAt,
             imageIds: params.imageIds,
             topics: params.topics,
             topicsLocation: params.topicsLocation,
@@ -53,10 +54,10 @@ export class NewsHelper {
         return news;
     }
 
-    static createExpiresAt(date: Date) {
+    static expiresAt(date: Date) {
         date = new Date(date);
-        date.setDate(date.getDate() + NEWS_EXPIRE_DAYS);
-        return date;
+        date.setDate(date.getDate() + NEWS_ITEM_EXPIRE_DAYS);
+        return Math.floor(date.getTime() / 1000);
     }
 
     static titleHash(title: string) {

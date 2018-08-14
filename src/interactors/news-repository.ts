@@ -1,11 +1,10 @@
 
 import {
-    ReadRepository,
-    WriteRepository,
+    Repository,
     RepositoryAccessOptions,
 } from '@ournet/domain';
 
-import { News } from '../entities/news';
+import { NewsItem } from '../entities/news';
 
 export interface NewsSearchParams {
     lang: string
@@ -20,11 +19,11 @@ export interface NewsSearchParams {
 export interface NewsQueryParams {
     lang: string
     country: string
-    limit: number
+    publishedAt?: Date
 }
 
 export interface LatestNewsQueryParams extends NewsQueryParams {
-    publishedAt?: Date
+    limit: number
 }
 
 export interface LatestNewsBySourceQueryParams extends LatestNewsQueryParams {
@@ -39,16 +38,10 @@ export interface LatestNewsByEventQueryParams extends LatestNewsQueryParams {
     eventId: string
 }
 
-export interface NewsReadRepository extends ReadRepository<News> {
-    search(params: NewsSearchParams, options?: RepositoryAccessOptions<News>): Promise<News>
-    latest(params: LatestNewsQueryParams, options?: RepositoryAccessOptions<News>): Promise<News>
-    latestBySource(params: LatestNewsBySourceQueryParams, options?: RepositoryAccessOptions<News>): Promise<News>
-    latestByTopic(params: LatestNewsByTopicQueryParams, options?: RepositoryAccessOptions<News>): Promise<News>
-    latestByEvent(params: LatestNewsByEventQueryParams, options?: RepositoryAccessOptions<News>): Promise<News>
+export interface NewsRepository extends Repository<NewsItem> {
+    search(params: NewsSearchParams, options?: RepositoryAccessOptions<NewsItem>): Promise<NewsItem[]>
+    latest(params: LatestNewsQueryParams, options?: RepositoryAccessOptions<NewsItem>): Promise<NewsItem[]>
+    latestBySource(params: LatestNewsBySourceQueryParams, options?: RepositoryAccessOptions<NewsItem>): Promise<NewsItem[]>
+    latestByTopic(params: LatestNewsByTopicQueryParams, options?: RepositoryAccessOptions<NewsItem>): Promise<NewsItem[]>
+    latestByEvent(params: LatestNewsByEventQueryParams, options?: RepositoryAccessOptions<NewsItem>): Promise<NewsItem[]>
 }
-
-export interface NewsWriteRepository extends WriteRepository<News> {
-
-}
-
-export interface NewsRepository extends NewsReadRepository, NewsWriteRepository { }

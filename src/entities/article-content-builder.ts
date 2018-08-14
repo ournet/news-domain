@@ -9,12 +9,12 @@ import { EventHelper } from "./event-helper";
 
 export class ArticleContentBuilder {
     static build(params: BuildArticleContentParams) {
-        const createdAt = params.createdAt || new Date();
-        let expiresAt = params.expiresAt as Date;
+        const createdAt = params.createdAt && new Date(params.createdAt) || new Date();
+        let expiresAt = params.expiresAt as number;
         if (params.refType === 'NEWS') {
-            expiresAt = expiresAt || NewsHelper.createExpiresAt(createdAt);
+            expiresAt = expiresAt || NewsHelper.expiresAt(createdAt);
         } else if (params.refType === 'EVENT') {
-            expiresAt = expiresAt || EventHelper.createExpiresAt(createdAt);
+            expiresAt = expiresAt || EventHelper.expiresAt(createdAt);
         } else {
             throw new Error(`Invalid refType: ${params.refType}`);
         }
@@ -26,7 +26,7 @@ export class ArticleContentBuilder {
             refId: params.refId,
             refType: params.refType,
             content: params.content,
-            createdAt,
+            createdAt: createdAt.toISOString(),
             expiresAt,
         };
 
@@ -34,11 +34,11 @@ export class ArticleContentBuilder {
     }
 
     static createId(ref: ArticleContentRef) {
-        return `${ref.refType.trim().toLowerCase()}-${ref.refType.trim()}`;
+        return `${ref.refType.trim().toLowerCase()}_${ref.refId.trim()}`;
     }
 
     static parseId(id: string) {
-        const parts = id.split(/-/);
+        const parts = id.split(/_/);
         if (parts.length !== 2) {
             throw new Error(`Invalid id: ${id}`);
         }

@@ -30,9 +30,9 @@ export interface NewsEvent {
 
 	status?: NewsEventStatus
 
-	createdAt: Date
-	updatedAt?: Date
-	expiresAt: Date
+	createdAt: string
+	updatedAt?: string
+	expiresAt: number
 
 	hasContent: boolean
 }
@@ -52,7 +52,7 @@ export interface NewsEventItem {
 	sourceId: string
 	host: string
 	path: string
-	publishedAt: Date
+	publishedAt: string
 }
 
 export interface BuildNewsEventParams {
@@ -79,8 +79,8 @@ export interface BuildNewsEventParams {
 
 	status?: NewsEventStatus
 
-	createdAt?: Date
-	expiresAt?: Date
+	createdAt?: string
+	expiresAt?: number
 
 	hasContent: boolean
 }
