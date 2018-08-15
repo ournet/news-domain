@@ -27,7 +27,7 @@ export interface NewsRepository extends Repository<NewsItem> {
 export interface NewsQueryParams {
     lang: string
     country: string
-    publishedAt?: Date
+    publishedAt?: string
 }
 
 export interface LatestNewsQueryParams extends NewsQueryParams {

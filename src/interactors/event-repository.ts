@@ -19,7 +19,7 @@ export interface EventRepository extends Repository<NewsEvent> {
 export interface EventsQueryParams {
     lang: string
     country: string
-    createdAt?: Date
+    createdAt?: string
 }
 
 export interface LatestEventsQueryParams extends EventsQueryParams {
