@@ -26,7 +26,6 @@ export class EventHelper {
             createdAt: createdAt.toISOString(),
             expiresAt,
             topics: params.topics,
-            topicsLocation: params.topicsLocation,
             videosIds: params.videosIds,
             quotesIds: params.quotesIds,
             hasContent: params.hasContent,

@@ -3,3 +3,6 @@
 src/
 tsconfig.json
 yarn.lock
+dev.sh
+prod.sh
+.travis.yml
