@@ -18,7 +18,7 @@ const schema = {
 
     summary: Joi.string().min(100).max(800).truncate(true),
     urlPath: Joi.string().min(1).max(800),
-    urlHost: Joi.string().min(4).max(200),
+    urlHost: Joi.string().min(4).max(100),
 
     sourceId: Joi.string().trim().min(2).max(50),
     imageIds: Joi.array().items(Joi.string().trim().min(2).max(50)).unique().empty(false),
@@ -90,5 +90,5 @@ const updateSchema = Joi.object().keys({
 
         countViews: schema.countViews,
     }),
-    delete: Joi.array().items(Joi.valid(['topics']))
+    delete: Joi.array().items(Joi.valid(['imagesIds', 'eventId']))
 }).or('set', 'delete').required();

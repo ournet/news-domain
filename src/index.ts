@@ -27,6 +27,10 @@ export {
 } from './entities/event-helper';
 
 export {
+    EventValidator,
+} from './entities/event-validator';
+
+export {
     BuildNewsParams,
     NewsItem,
 } from './entities/news';
@@ -44,6 +48,10 @@ export {
     TopicLocationMap,
     TopicType,
 } from './entities/topic';
+
+export {
+    TopItem,
+} from './entities/common';
 
 export {
     ArticleContentRepository,
