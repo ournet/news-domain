@@ -7,6 +7,7 @@ import {
 import {
     NewsEvent,
 } from '../entities/event';
+import { TopItem } from '../entities/common';
 
 export interface EventRepository extends Repository<NewsEvent> {
     latest(params: LatestEventsQueryParams, options?: RepositoryAccessOptions<NewsEvent>): Promise<NewsEvent[]>
@@ -14,6 +15,12 @@ export interface EventRepository extends Repository<NewsEvent> {
 
     count(params: CountEventsQueryParams): Promise<number>
     countByTopic(params: CountEventsByTopicQueryParams): Promise<number>
+
+    /**
+     * Top topics in a period. Expensive operation. Cache required!
+     * @param params Filter params
+     */
+    topTopics(params: LatestEventsQueryParams): Promise<TopItem[]>
 }
 
 export interface EventsQueryParams {

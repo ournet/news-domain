@@ -5,6 +5,7 @@ import {
 } from '@ournet/domain';
 
 import { NewsItem } from '../entities/news';
+import { TopItem } from '../entities/common';
 
 export interface NewsSearchParams {
     lang: string
@@ -14,11 +15,6 @@ export interface NewsSearchParams {
     maxCreatedAt: Date
     minScore?: number
     type?: 'best_fields' | 'most_fields' | 'cross_fields' | 'phrase' | 'phrase_prefix'
-}
-
-export interface TopItem {
-    id: string
-    count: number
 }
 
 export interface NewsRepository extends Repository<NewsItem> {
