@@ -16,6 +16,14 @@ export interface NewsSearchParams {
     type?: 'best_fields' | 'most_fields' | 'cross_fields' | 'phrase' | 'phrase_prefix'
 }
 
+export interface NewsRepository extends Repository<NewsItem> {
+    search(params: NewsSearchParams, options?: RepositoryAccessOptions<NewsItem>): Promise<NewsItem[]>
+    latest(params: LatestNewsQueryParams, options?: RepositoryAccessOptions<NewsItem>): Promise<NewsItem[]>
+    latestBySource(params: LatestNewsBySourceQueryParams, options?: RepositoryAccessOptions<NewsItem>): Promise<NewsItem[]>
+    latestByTopic(params: LatestNewsByTopicQueryParams, options?: RepositoryAccessOptions<NewsItem>): Promise<NewsItem[]>
+    latestByEvent(params: LatestNewsByEventQueryParams, options?: RepositoryAccessOptions<NewsItem>): Promise<NewsItem[]>
+}
+
 export interface NewsQueryParams {
     lang: string
     country: string
@@ -38,10 +46,18 @@ export interface LatestNewsByEventQueryParams extends LatestNewsQueryParams {
     eventId: string
 }
 
-export interface NewsRepository extends Repository<NewsItem> {
-    search(params: NewsSearchParams, options?: RepositoryAccessOptions<NewsItem>): Promise<NewsItem[]>
-    latest(params: LatestNewsQueryParams, options?: RepositoryAccessOptions<NewsItem>): Promise<NewsItem[]>
-    latestBySource(params: LatestNewsBySourceQueryParams, options?: RepositoryAccessOptions<NewsItem>): Promise<NewsItem[]>
-    latestByTopic(params: LatestNewsByTopicQueryParams, options?: RepositoryAccessOptions<NewsItem>): Promise<NewsItem[]>
-    latestByEvent(params: LatestNewsByEventQueryParams, options?: RepositoryAccessOptions<NewsItem>): Promise<NewsItem[]>
+export interface CountNewsQueryParams extends NewsQueryParams {
+    
+}
+
+export interface CountNewsBySourceQueryParams extends CountNewsQueryParams {
+    sourceId: string
+}
+
+export interface CountNewsByTopicQueryParams extends CountNewsQueryParams {
+    topicId: string
+}
+
+export interface CountNewsByEventQueryParams extends CountNewsQueryParams {
+    eventId: string
 }
