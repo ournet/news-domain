@@ -11,6 +11,10 @@ export {
 } from './entities/article-content-builder';
 
 export {
+    ArticleContentValidator,
+} from './entities/article-content-validator';
+
+export {
     BuildNewsEventParams,
     NewsEvent,
     NewsEventItem,
