@@ -1,4 +1,4 @@
-import { Topic, TopicLocationMap } from "./topic";
+import { Topic } from "./topic";
 
 export interface NewsEvent {
 	id: string
@@ -21,7 +21,6 @@ export interface NewsEvent {
 	countImages: number
 
 	topics: Topic[]
-	topicsLocation?: TopicLocationMap
 
 	items: NewsEventItem[]
 
@@ -70,7 +69,6 @@ export interface BuildNewsEventParams {
 	countImages: number
 
 	topics: Topic[]
-	topicsLocation?: TopicLocationMap
 
 	news: NewsEventItem[]
 

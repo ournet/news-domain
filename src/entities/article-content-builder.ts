@@ -30,6 +30,10 @@ export class ArticleContentBuilder {
             expiresAt,
         };
 
+        if (params.topicsMap && Object.keys(params.topicsMap).length) {
+            content.topicsMap = params.topicsMap;
+        }
+
         return content;
     }
 
