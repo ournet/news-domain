@@ -1,5 +1,5 @@
 
-import { sha1, normalizeUrl, clearText } from "@ournet/domain";
+import { normalizeUrl, clearText, md5 } from "@ournet/domain";
 import { slugify } from 'transliteration';
 import { BuildNewsParams, NewsItem } from "./news";
 import { splitUrl } from "../helpers";
@@ -16,9 +16,8 @@ export class NewsHelper {
             throw new Error(`Invalid news url:${params.url}`);
         }
 
-        const normalizedUrl = normalizeUrl(params.url);
+        
         const titleHash = NewsHelper.titleHash(params.title);
-        const urlHash = NewsHelper.urlHash(normalizedUrl);
         let slug = NewsHelper.slug(params.title).substr(0, 60);
         if (slug.endsWith('-')) {
             slug = slug.substr(0, slug.length - 1);
@@ -26,7 +25,8 @@ export class NewsHelper {
 
         const createdAt = params.createdAt && new Date(params.createdAt) || new Date();
         const expiresAt = params.expiresAt || NewsHelper.expiresAt(createdAt);
-        const id = NewsHelper.createId(params.country, params.lang, urlHash, createdAt);
+        const normalizedUrl = normalizeUrl(params.url);
+        const id = md5(normalizedUrl);
         const publishedAt = params.publishedAt || createdAt.toISOString();
         const countViews = 0;
 
@@ -36,7 +36,6 @@ export class NewsHelper {
             summary: params.summary,
             sourceId: params.sourceId,
             titleHash,
-            urlHash,
             slug,
             lang: params.lang,
             country: params.country,
@@ -62,42 +61,14 @@ export class NewsHelper {
     }
 
     static titleHash(title: string) {
-        title = clearText(title.toLowerCase())
-            .replace(/\s{2,}/g, ' ').trim();
-        return sha1(title);
-    }
-
-    static urlHash(normalizedUrl: string) {
-        return sha1(normalizedUrl.trim());
+        title = clearText(title.toLowerCase());
+        return md5(title);
     }
 
     static slug(text: string) {
-        return slugify(text.trim(), {
+        return slugify(text.trim().toLowerCase(), {
             lowercase: true,
             separator: '-',
         });
-    }
-
-    static createId(country: string, lang: string, urlHash: string, date: Date) {
-        const locale = NewsHelper.formatIdLocale(country, lang);
-        return `${urlHash.substr(0, 8)}${NewsHelper.formatIdDate(date)}${locale}`;
-    }
-
-    static formatIdLocale(country: string, lang: string) {
-        return `${country.trim()}${lang.trim()}`;
-    }
-
-    static formatIdDate(date: Date) {
-        const month = date.getUTCMonth() + 1;
-        const day = date.getUTCDate();
-
-        return `${date.getUTCFullYear().toString().substr(2)}${month > 9 ? month : '0' + month}${day > 9 ? day : '0' + day}`;
-    }
-
-    static parseLocaleFromId(id: string) {
-        return {
-            country: id.substr(id.length - 4, 2),
-            lang: id.substr(id.length - 2),
-        };
     }
 }

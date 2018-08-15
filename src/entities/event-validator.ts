@@ -46,7 +46,7 @@ const schema = {
         title: Joi.string().min(2).max(200).required(),
         path: Joi.string().min(1).max(500).required(),
         host: Joi.string().min(4).max(100).required(),
-        id: Joi.string().regex(/^[a-z0-9]{18}$/).required(),
+        id: Joi.string().regex(/^[a-f0-9]{32}$/).required(),
         sourceId: Joi.string().trim().min(2).max(50).required(),
     })).min(1).max(10).unique(),
 

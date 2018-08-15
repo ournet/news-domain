@@ -50,7 +50,26 @@ export class EventHelper {
         return Math.floor(date.getTime() / 1000);
     }
 
+    static createId(country: string, lang: string, titleHash: string, date: Date) {
+        const locale = EventHelper.formatIdLocale(country, lang);
+        return `${titleHash.substr(0, 8)}${EventHelper.formatIdDate(date)}${locale}`;
+    }
+
+    static formatIdLocale(country: string, lang: string) {
+        return `${country.trim()}${lang.trim()}`;
+    }
+
+    static formatIdDate(date: Date) {
+        const month = date.getUTCMonth() + 1;
+        const day = date.getUTCDate();
+
+        return `${date.getUTCFullYear().toString().substr(2)}${month > 9 ? month : '0' + month}${day > 9 ? day : '0' + day}`;
+    }
+
     static parseLocaleFromId(id: string) {
-        return NewsHelper.parseLocaleFromId(id);
+        return {
+            country: id.substr(id.length - 4, 2),
+            lang: id.substr(id.length - 2),
+        };
     }
 }

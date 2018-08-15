@@ -22,7 +22,6 @@ export interface NewsItem {
     publishedAt: string
     expiresAt: number
 
-    urlHash: string
     titleHash: string
 
     hasContent: boolean

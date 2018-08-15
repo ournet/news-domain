@@ -8,8 +8,8 @@ export class ArticleContentValidator extends EntityValidator<ArticleContent> {
 }
 
 const schema = {
-    id: Joi.string().regex(/^(news|event)_[a-z0-9]{18}$/),
-    refId: Joi.string().regex(/^[a-z0-9]{18}$/),
+    id: Joi.string().regex(/^(news|event)_[a-z0-9]{18,32}$/),
+    refId: Joi.string().regex(/^[a-z0-9]{18,32}$/),
     refType: Joi.string().valid('NEWS', 'EVENT'),
     content: Joi.string().min(100),
     topicsMap: Joi.object().pattern(/^[a-z0-9-]{4,40}$/,

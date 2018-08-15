@@ -8,7 +8,7 @@ export class NewsItemValidator extends EntityValidator<NewsItem> {
 }
 
 const schema = {
-    id: Joi.string().regex(/^[a-z0-9]{18}$/),
+    id: Joi.string().regex(/^[a-f0-9]{32}$/),
 
     title: Joi.string().min(2).max(200).required(),
     slug: Joi.string().min(2).max(100).required(),
@@ -31,15 +31,14 @@ const schema = {
         type: Joi.string().valid(['PERSON', 'ORG', 'PLACE', 'PRODUCT', 'WORK']),
     })).unique().min(1).max(10),
 
-    eventId: Joi.string().trim().min(6).max(40),
+    eventId: Joi.string().regex(/^[a-z0-9]{18}$/),
 
     createdAt: Joi.string().isoDate(),
     updatedAt: Joi.string().isoDate(),
     publishedAt: Joi.string().isoDate(),
     expiresAt: Joi.date().timestamp().raw(),
 
-    urlHash: Joi.string().min(32).max(40),
-    titleHash: Joi.string().min(32).max(40),
+    titleHash: Joi.string().regex(/^[a-f0-9]{32}$/),
 
     hasContent: Joi.boolean(),
 
@@ -72,7 +71,6 @@ const createSchema = Joi.object().keys({
     publishedAt: schema.publishedAt.required(),
     expiresAt: schema.expiresAt.required(),
 
-    urlHash: schema.urlHash.required(),
     titleHash: schema.titleHash.required(),
 
     hasContent: schema.hasContent.required(),
@@ -89,6 +87,6 @@ const updateSchema = Joi.object().keys({
         expiresAt: schema.expiresAt,
 
         countViews: schema.countViews,
-    }),
-    delete: Joi.array().items(Joi.valid(['imagesIds', 'eventId']))
+    }).empty(false),
+    delete: Joi.array().items(Joi.valid(['imagesIds', 'eventId'])).empty(false)
 }).or('set', 'delete').required();

@@ -24,6 +24,11 @@ export interface NewsRepository extends Repository<NewsItem> {
     latestByTopic(params: LatestNewsByTopicQueryParams, options?: RepositoryAccessOptions<NewsItem>): Promise<NewsItem[]>
     latestByEvent(params: LatestNewsByEventQueryParams, options?: RepositoryAccessOptions<NewsItem>): Promise<NewsItem[]>
 
+    count(params: CountNewsQueryParams): Promise<number>
+    countBySource(params: CountNewsBySourceQueryParams): Promise<number>
+    countByTopic(params: CountNewsByTopicQueryParams): Promise<number>
+    countByEvent(params: CountNewsByEventQueryParams): Promise<number>
+
     /**
      * Top sources in a period. Expensive operation. Cache required!
      * @param params Filter params
