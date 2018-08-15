@@ -16,12 +16,29 @@ export interface NewsSearchParams {
     type?: 'best_fields' | 'most_fields' | 'cross_fields' | 'phrase' | 'phrase_prefix'
 }
 
+export interface TopItem {
+    id: string
+    count: number
+}
+
 export interface NewsRepository extends Repository<NewsItem> {
     search(params: NewsSearchParams, options?: RepositoryAccessOptions<NewsItem>): Promise<NewsItem[]>
     latest(params: LatestNewsQueryParams, options?: RepositoryAccessOptions<NewsItem>): Promise<NewsItem[]>
     latestBySource(params: LatestNewsBySourceQueryParams, options?: RepositoryAccessOptions<NewsItem>): Promise<NewsItem[]>
     latestByTopic(params: LatestNewsByTopicQueryParams, options?: RepositoryAccessOptions<NewsItem>): Promise<NewsItem[]>
     latestByEvent(params: LatestNewsByEventQueryParams, options?: RepositoryAccessOptions<NewsItem>): Promise<NewsItem[]>
+
+    /**
+     * Top sources in a period. Expensive operation. Cache required!
+     * @param params Filter params
+     */
+    topSources(params: LatestNewsQueryParams): Promise<TopItem[]>
+
+    /**
+     * Top source`s topics in a period. Expensive operation. Cache required!
+     * @param params Filter params
+     */
+    topSourceTopics(params: LatestNewsBySourceQueryParams): Promise<TopItem[]>
 }
 
 export interface NewsQueryParams {

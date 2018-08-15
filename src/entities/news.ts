@@ -14,7 +14,6 @@ export interface NewsItem {
     imageIds?: string[]
     videoId?: string
     topics?: Topic[]
-    topicsLocation?: TopicLocationMap
 
     eventId?: string
 
@@ -27,6 +26,8 @@ export interface NewsItem {
     titleHash: string
 
     hasContent: boolean
+
+    countViews: number
 }
 
 export interface BuildNewsParams {

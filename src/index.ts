@@ -32,6 +32,10 @@ export {
 } from './entities/news-helper';
 
 export {
+    NewsItemValidator,
+} from './entities/news-validator';
+
+export {
     Topic,
     TopicLocationMap,
     TopicType,

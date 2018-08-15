@@ -28,6 +28,7 @@ export class NewsHelper {
         const expiresAt = params.expiresAt || NewsHelper.expiresAt(createdAt);
         const id = NewsHelper.createId(params.country, params.lang, urlHash, createdAt);
         const publishedAt = params.publishedAt || createdAt.toISOString();
+        const countViews = 0;
 
         const news: NewsItem = {
             id,
@@ -44,11 +45,11 @@ export class NewsHelper {
             publishedAt,
             imageIds: params.imageIds,
             topics: params.topics,
-            topicsLocation: params.topicsLocation,
             videoId: params.videoId,
             urlHost: urlData.host,
             urlPath: urlData.path,
             hasContent: params.hasContent,
+            countViews,
         };
 
         return news;
