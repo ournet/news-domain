@@ -21,12 +21,19 @@ export interface EventRepository extends Repository<NewsEvent> {
      * @param params Filter params
      */
     topTopics(params: LatestEventsQueryParams): Promise<TopItem[]>
+
+    /**
+     * Trending topics in a period. Expensive operation. Cache required!
+     * @param params Filter params
+     */
+    trendingTopics(params: TrendingTopicsQueryParams): Promise<TopItem[]>
 }
 
 export interface EventsQueryParams {
     lang: string
     country: string
-    createdAt?: string
+    maxDate?: string
+    minDate?: string
 }
 
 export interface LatestEventsQueryParams extends EventsQueryParams {
@@ -43,4 +50,11 @@ export interface CountEventsQueryParams extends EventsQueryParams {
 
 export interface CountEventsByTopicQueryParams extends CountEventsQueryParams {
     topicId: string
+}
+
+export interface TrendingTopicsQueryParams {
+    lang: string
+    country: string
+    limit: number
+    period: '24h' | '3d'
 }

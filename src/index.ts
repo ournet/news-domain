@@ -64,6 +64,7 @@ export {
     EventsQueryParams,
     LatestEventsByTopicQueryParams,
     LatestEventsQueryParams,
+    TrendingTopicsQueryParams,
 } from './interactors/event-repository';
 
 export {
