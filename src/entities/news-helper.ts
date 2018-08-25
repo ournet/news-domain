@@ -2,8 +2,8 @@
 import { normalizeUrl, clearText, md5 } from "@ournet/domain";
 import { slugify } from 'transliteration';
 import { BuildNewsParams, NewsItem } from "./news";
-import { splitUrl } from "../helpers";
-import { NEWS_ITEM_EXPIRE_DAYS } from "../config";
+import { splitUrl, truncateAt } from "../helpers";
+import { NEWS_ITEM_EXPIRE_DAYS, NEWS_MAX_SUMMARY } from "../config";
 
 export class NewsHelper {
 
@@ -16,7 +16,7 @@ export class NewsHelper {
             throw new Error(`Invalid news url:${params.url}`);
         }
 
-        
+
         const titleHash = NewsHelper.titleHash(params.title);
         let slug = NewsHelper.slug(params.title).substr(0, 60);
         if (slug.endsWith('-')) {
@@ -50,6 +50,8 @@ export class NewsHelper {
             hasContent: params.hasContent,
             countViews,
         };
+
+        news.summary = truncateAt(news.summary, NEWS_MAX_SUMMARY);
 
         return news;
     }

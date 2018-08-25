@@ -5,4 +5,6 @@ import {
 
 import { ArticleContent } from '../entities/article-content';
 
-export interface ArticleContentRepository extends Repository<ArticleContent> { }
+export interface ArticleContentRepository extends Repository<ArticleContent> {
+    put(content: ArticleContent): Promise<ArticleContent>
+}

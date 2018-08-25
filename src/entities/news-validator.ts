@@ -1,5 +1,6 @@
 import { EntityValidator, Joi } from "@ournet/domain";
 import { NewsItem } from "./news";
+import { NEWS_MAX_SUMMARY } from "../config";
 
 export class NewsItemValidator extends EntityValidator<NewsItem> {
     constructor() {
@@ -16,7 +17,7 @@ const schema = {
     lang: Joi.string().regex(/^[a-z]{2}$/),
     country: Joi.string().regex(/^[a-z]{2}$/),
 
-    summary: Joi.string().min(100).max(800).truncate(true),
+    summary: Joi.string().min(100).max(NEWS_MAX_SUMMARY).truncate(true),
     urlPath: Joi.string().min(1).max(800),
     urlHost: Joi.string().min(4).max(100),
 
