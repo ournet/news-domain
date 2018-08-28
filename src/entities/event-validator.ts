@@ -39,7 +39,7 @@ const schema = {
         name: Joi.string().min(2).max(200).required(),
         slug: Joi.string().min(2).max(200).required(),
         abbr: Joi.string().min(2).max(50),
-        type: Joi.string().valid(['PERSON', 'ORG', 'PLACE', 'PRODUCT', 'WORK']),
+        type: Joi.string().valid(['PERSON', 'ORG', 'PLACE', 'PRODUCT', 'WORK', 'EVENT']),
     })).unique().min(1).max(6),
 
     items: Joi.array().items(Joi.object().keys({

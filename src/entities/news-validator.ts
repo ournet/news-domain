@@ -29,8 +29,9 @@ const schema = {
         name: Joi.string().min(2).max(200).required(),
         slug: Joi.string().min(2).max(200).required(),
         abbr: Joi.string().min(2).max(50),
-        type: Joi.string().valid(['PERSON', 'ORG', 'PLACE', 'PRODUCT', 'WORK']),
+        type: Joi.string().valid(['PERSON', 'ORG', 'PLACE', 'PRODUCT', 'WORK', 'EVENT']),
     })).unique().min(1).max(10),
+
     quotesIds: Joi.array().items(Joi.string().min(5).max(40)).unique().min(1).max(10),
 
     eventId: Joi.string().regex(/^[a-z0-9]{18}$/),
@@ -66,6 +67,7 @@ const createSchema = Joi.object().keys({
     imageIds: schema.imageIds,
     videoId: schema.videoId,
     topics: schema.topics.required(),
+    quotesIds: schema.quotesIds,
 
     eventId: schema.eventId,
 
@@ -79,6 +81,7 @@ const createSchema = Joi.object().keys({
     hasContent: schema.hasContent.required(),
 
     countViews: schema.countViews.required(),
+    countQuotes: schema.countQuotes.required(),
 }).required();
 
 const updateSchema = Joi.object().keys({

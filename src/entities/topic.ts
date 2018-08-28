@@ -1,5 +1,5 @@
 
-export type TopicType = 'PERSON' | 'ORG' | 'PLACE' | 'PRODUCT' | 'WORK';
+export type TopicType = 'PERSON' | 'ORG' | 'PLACE' | 'PRODUCT' | 'WORK' | 'EVENT';
 
 export interface Topic {
     id: string
