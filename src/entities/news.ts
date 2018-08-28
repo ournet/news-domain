@@ -27,6 +27,8 @@ export interface NewsItem {
     hasContent: boolean
 
     countViews: number
+    countQuotes?: number
+    quotesIds?: string[]
 }
 
 export interface BuildNewsParams {
@@ -47,4 +49,5 @@ export interface BuildNewsParams {
     publishedAt?: string
     createdAt?: string
     expiresAt?: number
+    quotesIds?: string[]
 }

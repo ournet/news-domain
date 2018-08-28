@@ -31,6 +31,7 @@ const schema = {
         abbr: Joi.string().min(2).max(50),
         type: Joi.string().valid(['PERSON', 'ORG', 'PLACE', 'PRODUCT', 'WORK']),
     })).unique().min(1).max(10),
+    quotesIds: Joi.array().items(Joi.string().min(5).max(40)).unique().min(1).max(10),
 
     eventId: Joi.string().regex(/^[a-z0-9]{18}$/),
 
@@ -44,6 +45,7 @@ const schema = {
     hasContent: Joi.boolean(),
 
     countViews: Joi.number().integer().min(0),
+    countQuotes: Joi.number().integer().min(0),
 };
 
 const createSchema = Joi.object().keys({

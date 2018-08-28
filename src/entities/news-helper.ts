@@ -49,6 +49,8 @@ export class NewsHelper {
             urlPath: urlData.path,
             hasContent: params.hasContent,
             countViews,
+            countQuotes: params.quotesIds && params.quotesIds.length || 0,
+            quotesIds: params.quotesIds,
         };
 
         news.summary = truncateAt(news.summary, NEWS_MAX_SUMMARY);
