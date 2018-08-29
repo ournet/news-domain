@@ -1,5 +1,10 @@
 
 export {
+    NEWS_MAX_SUMMARY_LENGTH,
+    NEWS_MIN_SUMMARY_LENGTH,
+} from './config';
+
+export {
     ArticleContent,
     ArticleContentRef,
     ArticleContentRefType,

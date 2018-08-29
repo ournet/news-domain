@@ -3,7 +3,7 @@ import { normalizeUrl, clearText, md5 } from "@ournet/domain";
 import { slugify } from 'transliteration';
 import { BuildNewsParams, NewsItem } from "./news";
 import { splitUrl, truncateAt } from "../helpers";
-import { NEWS_ITEM_EXPIRE_DAYS, NEWS_MAX_SUMMARY } from "../config";
+import { NEWS_ITEM_EXPIRE_DAYS, NEWS_MAX_SUMMARY_LENGTH } from "../config";
 
 export class NewsHelper {
 
@@ -53,7 +53,7 @@ export class NewsHelper {
             quotesIds: params.quotesIds,
         };
 
-        news.summary = truncateAt(news.summary, NEWS_MAX_SUMMARY);
+        news.summary = truncateAt(news.summary, NEWS_MAX_SUMMARY_LENGTH);
 
         return news;
     }
