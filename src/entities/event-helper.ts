@@ -2,6 +2,7 @@
 import { NEWS_EVENT_EXPIRE_DAYS } from "../config";
 import { BuildNewsEventParams, NewsEvent } from "./event";
 import { NewsHelper } from "./news-helper";
+import { sha1, clearText } from "@ournet/domain";
 
 export class EventHelper {
 
@@ -13,7 +14,14 @@ export class EventHelper {
 
         const createdAt = params.createdAt && new Date(params.createdAt) || new Date();
         const expiresAt = params.expiresAt || EventHelper.expiresAt(createdAt);
-        const id = params.source.id;
+        const id = EventHelper.createId(params.country, params.lang, params.title, createdAt);
+
+        if (params.videosIds && params.videosIds.length === 0) {
+            delete params.videosIds;
+        }
+        if (params.quotesIds && params.quotesIds.length === 0) {
+            delete params.quotesIds;
+        }
 
         const event: NewsEvent = {
             id,
@@ -50,8 +58,9 @@ export class EventHelper {
         return Math.floor(date.getTime() / 1000);
     }
 
-    static createId(country: string, lang: string, titleHash: string, date: Date) {
+    static createId(country: string, lang: string, title: string, date: Date) {
         const locale = EventHelper.formatIdLocale(country, lang);
+        const titleHash = sha1(clearText(title.toLowerCase()));
         return `${titleHash.substr(0, 8)}${EventHelper.formatIdDate(date)}${locale}`;
     }
 

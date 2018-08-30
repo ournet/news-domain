@@ -30,6 +30,13 @@ export class NewsHelper {
         const publishedAt = params.publishedAt || createdAt.toISOString();
         const countViews = 0;
 
+        if (params.imagesIds && params.imagesIds.length === 0) {
+            delete params.imagesIds;
+        }
+        if (params.quotesIds && params.quotesIds.length === 0) {
+            delete params.quotesIds;
+        }
+
         const news: NewsItem = {
             id,
             title: params.title,
@@ -42,7 +49,7 @@ export class NewsHelper {
             createdAt: createdAt.toISOString(),
             expiresAt,
             publishedAt,
-            imageIds: params.imageIds,
+            imagesIds: params.imagesIds,
             topics: params.topics,
             videoId: params.videoId,
             urlHost: urlData.host,

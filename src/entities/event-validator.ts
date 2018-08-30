@@ -1,5 +1,6 @@
 import { EntityValidator, Joi } from "@ournet/domain";
 import { NewsEvent } from "./event";
+import { NEWS_ID_REGEX } from "./news-validator";
 
 export class EventValidator extends EntityValidator<NewsEvent> {
     constructor() {
@@ -20,7 +21,7 @@ const schema = {
     source: Joi.object().keys({
         path: Joi.string().min(1).max(500).required(),
         host: Joi.string().min(4).max(100).required(),
-        id: Joi.string().regex(/^[a-z0-9]{18}$/).required(),
+        id: Joi.string().regex(NEWS_ID_REGEX).required(),
         sourceId: Joi.string().trim().min(2).max(50).required(),
     }),
 
@@ -43,11 +44,12 @@ const schema = {
     })).unique().min(1).max(6),
 
     items: Joi.array().items(Joi.object().keys({
-        title: Joi.string().min(2).max(200).required(),
+        title: Joi.string().min(2).max(200).truncate(true).required(),
         path: Joi.string().min(1).max(500).required(),
         host: Joi.string().min(4).max(100).required(),
-        id: Joi.string().regex(/^[a-f0-9]{32}$/).required(),
+        id: Joi.string().regex(NEWS_ID_REGEX).required(),
         sourceId: Joi.string().trim().min(2).max(50).required(),
+        publishedAt: Joi.string().isoDate().required(),
     })).min(1).max(10).unique(),
 
     quotesIds: Joi.array().items(Joi.string().trim().min(2).max(40)).unique().min(1).max(50),

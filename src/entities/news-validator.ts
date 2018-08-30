@@ -2,6 +2,8 @@ import { EntityValidator, Joi } from "@ournet/domain";
 import { NewsItem } from "./news";
 import { NEWS_MAX_SUMMARY_LENGTH, NEWS_MIN_SUMMARY_LENGTH } from "../config";
 
+export const NEWS_ID_REGEX = /^[a-f0-9]{32}$/;
+
 export class NewsItemValidator extends EntityValidator<NewsItem> {
     constructor() {
         super({ createSchema, updateSchema });
@@ -9,7 +11,7 @@ export class NewsItemValidator extends EntityValidator<NewsItem> {
 }
 
 const schema = {
-    id: Joi.string().regex(/^[a-f0-9]{32}$/),
+    id: Joi.string().regex(NEWS_ID_REGEX),
 
     title: Joi.string().min(2).max(200).truncate(true).required(),
     slug: Joi.string().min(2).max(100).required(),
@@ -22,7 +24,7 @@ const schema = {
     urlHost: Joi.string().min(4).max(100),
 
     sourceId: Joi.string().trim().min(2).max(50),
-    imageIds: Joi.array().items(Joi.string().trim().min(2).max(50)).unique().empty(false),
+    imagesIds: Joi.array().items(Joi.string().trim().min(2).max(50)).unique().empty(false),
     videoId: Joi.array().items(Joi.string().trim().min(2).max(25)).unique().empty(false),
     topics: Joi.array().items(Joi.object().keys({
         id: Joi.string().min(4).max(40).required(),
@@ -41,7 +43,7 @@ const schema = {
     publishedAt: Joi.string().isoDate(),
     expiresAt: Joi.date().timestamp().raw(),
 
-    titleHash: Joi.string().regex(/^[a-f0-9]{32}$/),
+    titleHash: Joi.string().regex(NEWS_ID_REGEX),
 
     hasContent: Joi.boolean(),
 
@@ -64,7 +66,7 @@ const createSchema = Joi.object().keys({
     urlHost: schema.urlHost.required(),
 
     sourceId: schema.sourceId.required(),
-    imageIds: schema.imageIds,
+    imagesIds: schema.imagesIds,
     videoId: schema.videoId,
     topics: schema.topics.required(),
     quotesIds: schema.quotesIds,
