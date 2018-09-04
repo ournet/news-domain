@@ -24,7 +24,7 @@ const schema = {
     urlHost: Joi.string().min(4).max(100),
 
     sourceId: Joi.string().trim().min(2).max(50),
-    imagesIds: Joi.array().items(Joi.string().trim().min(2).max(50)).unique().empty(false),
+    imagesIds: Joi.array().items(Joi.string().trim().min(16).max(40)).unique().empty(false),
     videoId: Joi.array().items(Joi.string().trim().min(2).max(25)).unique().empty(false),
     topics: Joi.array().items(Joi.object().keys({
         id: Joi.string().min(4).max(40).required(),
