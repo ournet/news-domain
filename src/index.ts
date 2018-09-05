@@ -9,6 +9,7 @@ export {
     ArticleContentRef,
     ArticleContentRefType,
     BuildArticleContentParams,
+    ArticleContentFormat,
 } from './entities/article-content';
 
 export {

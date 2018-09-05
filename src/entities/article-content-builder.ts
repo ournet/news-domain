@@ -26,9 +26,14 @@ export class ArticleContentBuilder {
             refId: params.refId,
             refType: params.refType,
             content: params.content,
+            format: params.format,
             createdAt: createdAt.toISOString(),
             expiresAt,
         };
+
+        if (params.formatVersion !== undefined) {
+            content.formatVersion = params.formatVersion;
+        }
 
         if (params.topicsMap && Object.keys(params.topicsMap).length) {
             content.topicsMap = params.topicsMap;
