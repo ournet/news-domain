@@ -1,5 +1,5 @@
 
-import { NEWS_EVENT_EXPIRE_DAYS } from "../config";
+import { NEWS_EVENT_EXPIRE_DAYS, NEWS_EVENT_TOPIC_EXPIRE_DAYS } from "../config";
 import { BuildNewsEventParams, NewsEvent } from "./event";
 import { NewsHelper } from "./news-helper";
 import { sha1, clearText } from "@ournet/domain";
@@ -55,6 +55,12 @@ export class EventHelper {
     static expiresAt(date: Date) {
         date = new Date(date);
         date.setDate(date.getDate() + NEWS_EVENT_EXPIRE_DAYS);
+        return Math.floor(date.getTime() / 1000);
+    }
+
+    static topicExpiresAt(date: Date) {
+        date = new Date(date);
+        date.setDate(date.getDate() + NEWS_EVENT_TOPIC_EXPIRE_DAYS);
         return Math.floor(date.getTime() / 1000);
     }
 
