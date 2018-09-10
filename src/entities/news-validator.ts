@@ -1,10 +1,11 @@
-import { EntityValidator, Joi } from "@ournet/domain";
+import { JoiEntityValidator } from "@ournet/domain";
 import { NewsItem } from "./news";
 import { NEWS_MAX_SUMMARY_LENGTH, NEWS_MIN_SUMMARY_LENGTH } from "../config";
-
 export const NEWS_ID_REGEX = /^[a-f0-9]{32}$/;
 
-export class NewsItemValidator extends EntityValidator<NewsItem> {
+import Joi = require('joi');
+
+export class NewsItemValidator extends JoiEntityValidator<NewsItem> {
     constructor() {
         super({ createSchema, updateSchema });
     }

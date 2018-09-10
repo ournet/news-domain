@@ -1,8 +1,11 @@
-import { EntityValidator, Joi } from "@ournet/domain";
+import { JoiEntityValidator } from "@ournet/domain";
 import { NewsEvent } from "./event";
 import { NEWS_ID_REGEX } from "./news-validator";
 
-export class EventValidator extends EntityValidator<NewsEvent> {
+import Joi = require('joi');
+import { NEWS_MIN_SUMMARY_LENGTH, NEWS_MAX_SUMMARY_LENGTH } from "../config";
+
+export class EventValidator extends JoiEntityValidator<NewsEvent> {
     constructor() {
         super({ createSchema, updateSchema });
     }
@@ -17,7 +20,7 @@ const schema = {
     lang: Joi.string().regex(/^[a-z]{2}$/),
     country: Joi.string().regex(/^[a-z]{2}$/),
 
-    summary: Joi.string().min(100).max(600).truncate(true),
+    summary: Joi.string().min(NEWS_MIN_SUMMARY_LENGTH).max(NEWS_MAX_SUMMARY_LENGTH).truncate(true),
     source: Joi.object().keys({
         path: Joi.string().min(1).max(500).required(),
         host: Joi.string().min(4).max(100).required(),
