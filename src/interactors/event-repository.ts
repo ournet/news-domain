@@ -13,6 +13,8 @@ export interface EventRepository extends Repository<NewsEvent> {
     latest(params: LatestEventsQueryParams, options?: RepositoryAccessOptions<NewsEvent>): Promise<NewsEvent[]>
     latestByTopic(params: LatestEventsByTopicQueryParams, options?: RepositoryAccessOptions<NewsEvent>): Promise<NewsEvent[]>
 
+    similarByTopics(params: SimilarEventsByTopicsQueryParams, options?: RepositoryAccessOptions<NewsEvent>): Promise<NewsEvent[]>
+
     count(params: CountEventsQueryParams): Promise<number>
     countByTopic(params: CountEventsByTopicQueryParams): Promise<number>
 
@@ -59,4 +61,9 @@ export interface TrendingTopicsQueryParams {
     country: string
     limit: number
     period: '24h' | '3d'
+}
+
+export interface SimilarEventsByTopicsQueryParams extends LatestEventsQueryParams {
+    topicIds: string[]
+    exceptId?: string
 }

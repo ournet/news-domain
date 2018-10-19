@@ -71,6 +71,7 @@ export {
     LatestEventsByTopicQueryParams,
     LatestEventsQueryParams,
     TrendingTopicsQueryParams,
+    SimilarEventsByTopicsQueryParams,
 } from './interactors/event-repository';
 
 export {
