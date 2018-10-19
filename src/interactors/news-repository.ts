@@ -40,6 +40,8 @@ export interface NewsRepository extends Repository<NewsItem> {
      * @param params Filter params
      */
     topSourceTopics(params: LatestNewsBySourceQueryParams): Promise<TopItem[]>
+
+    viewNewsItem(id: string): Promise<number>
 }
 
 export interface NewsQueryParams {

@@ -27,6 +27,8 @@ export interface EventRepository extends Repository<NewsEvent> {
      * @param params Filter params
      */
     trendingTopics(params: TrendingTopicsQueryParams): Promise<TopItem[]>
+
+    viewNewsEvent(id: string): Promise<number>
 }
 
 export interface EventsQueryParams {
