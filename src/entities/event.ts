@@ -26,6 +26,7 @@ export interface NewsEvent {
 
 	quotesIds?: string[]
 	videosIds?: string[]
+	imagesIds?: string[]
 
 	status?: NewsEventStatus
 
@@ -66,14 +67,13 @@ export interface BuildNewsEventParams {
 	imageHost: string
 	imageSourceId: string
 
-	countImages: number
-
 	topics: Topic[]
 
 	news: NewsEventItem[]
 
 	quotesIds?: string[]
 	videosIds?: string[]
+	imagesIds?: string[]
 
 	status?: NewsEventStatus
 

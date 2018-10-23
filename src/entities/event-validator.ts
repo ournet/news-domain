@@ -57,6 +57,7 @@ const schema = {
 
     quotesIds: Joi.array().items(Joi.string().trim().min(2).max(40)).unique().min(1).max(50),
     videosIds: Joi.array().items(Joi.string().trim().min(2).max(40)).unique().min(1).max(50),
+    imagesIds: Joi.array().items(Joi.string().trim().min(2).max(40)).unique().min(1).max(50),
 
     status: Joi.string().valid(['ADULT']),
 
@@ -95,6 +96,7 @@ const createSchema = Joi.object().keys({
 
     quotesIds: schema.quotesIds,
     videosIds: schema.videosIds,
+    imagesIds: schema.imagesIds,
 
     status: schema.status,
 
@@ -128,6 +130,7 @@ const updateSchema = Joi.object().keys({
 
         quotesIds: schema.quotesIds,
         videosIds: schema.videosIds,
+        imagesIds: schema.imagesIds,
 
         status: schema.status,
 
@@ -136,5 +139,5 @@ const updateSchema = Joi.object().keys({
 
         hasContent: schema.hasContent,
     }),
-    delete: Joi.array().items(Joi.valid(['status', 'quotesIds', 'videosIds']))
+    delete: Joi.array().items(Joi.valid(['status', 'quotesIds', 'videosIds', 'imagesIds']))
 }).or('set', 'delete').required();

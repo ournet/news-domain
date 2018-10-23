@@ -22,6 +22,9 @@ export class EventHelper {
         if (params.quotesIds && params.quotesIds.length === 0) {
             delete params.quotesIds;
         }
+        if (params.imagesIds && params.imagesIds.length === 0) {
+            delete params.imagesIds;
+        }
 
         const event: NewsEvent = {
             id,
@@ -36,11 +39,12 @@ export class EventHelper {
             topics: params.topics,
             videosIds: params.videosIds,
             quotesIds: params.quotesIds,
+            imagesIds: params.imagesIds,
             hasContent: params.hasContent,
-            countImages: params.countImages,
             countNews: params.news.length,
             countQuotes: params.quotesIds && params.quotesIds.length || 0,
             countVideos: params.videosIds && params.videosIds.length || 0,
+            countImages: params.imagesIds && params.imagesIds.length || 1,
             countViews: 0,
             imageHost: params.imageHost,
             imageId: params.imageId,
