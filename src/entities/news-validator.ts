@@ -26,7 +26,7 @@ const schema = {
 
     sourceId: Joi.string().trim().min(2).max(50),
     imagesIds: Joi.array().items(Joi.string().trim().min(16).max(40)).unique().empty(false),
-    videoId: Joi.array().items(Joi.string().trim().min(2).max(25)).unique().empty(false),
+    videoId: Joi.string().trim().min(2).max(40),
     topics: Joi.array().items(Joi.object().keys({
         id: Joi.string().min(4).max(40).required(),
         name: Joi.string().min(2).max(200).required(),
@@ -97,5 +97,5 @@ const updateSchema = Joi.object().keys({
 
         countViews: schema.countViews,
     }).empty(false),
-    delete: Joi.array().items(Joi.valid(['imagesIds', 'eventId'])).empty(false)
+    delete: Joi.array().items(Joi.valid(['imagesIds', 'eventId', 'videoId'])).empty(false)
 }).or('set', 'delete').required();
