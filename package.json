@@ -1,6 +1,6 @@
 {
   "name": "@ournet/news-domain",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Ournet news domain module",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
