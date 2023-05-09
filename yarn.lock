@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@ournet/domain@^0.3.6":
-  version "0.3.6"
-  resolved "https://registry.yarnpkg.com/@ournet/domain/-/domain-0.3.6.tgz#d4b217fd5829410da595155454ef19a287a4a30a"
-  integrity sha512-hvlIlD2tvCeMFXfiIptlKmFc8pc+hom4+sefxYTAlu3UcmXx7DJ3Z59K14PGXCl/zVN7d78GBF0Gb+mfAa7PHg==
+"@ournet/domain@^0.4.2":
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/@ournet/domain/-/domain-0.4.2.tgz#460c6fee2490c2d7be7bab7d1dd41da113d90259"
+  integrity sha512-SqSVEM3itAHgLP4mqUiLr6qniUy4IGOk4rMGD6bVv5S2JhYD7KnuhWQSdidZNWRS56CIJs+ms3Rlu/QRVh+/Ug==
   dependencies:
     atonic "^1.0.4"
     joi "^14.0.3"
